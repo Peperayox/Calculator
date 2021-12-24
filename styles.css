@@ -1,0 +1,43 @@
+* {
+  background-color: bisque;
+}
+
+html {
+  /* footer support */
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 100px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px;
+  font-size: 20px;
+}
+.button-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+}
+#footer-logo {
+  width: 2em;
+  height: auto;
+  margin-left: 1em;
+}
+#footer-logo:hover {
+  transition-duration: 0.75s;
+  transform: rotate(720deg) scale(1.3);
+}
