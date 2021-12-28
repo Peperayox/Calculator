@@ -1,9 +1,12 @@
 const buttons = document.querySelectorAll('button');
 let down = '';
 let up = '';
-let ans = '';
-let var1 = '';
-let var2 = '';
+
+let ans;
+
+const displayBottom = document.querySelector('.display-bottom');
+
+const displayTop = document.querySelector('.display-top');
 
 buttons.forEach((button) => {
   button.addEventListener('click', onClick);
@@ -13,47 +16,84 @@ function onClick() {
   switch (this.id) {
     case 'clear':
       _clear();
-      console.log('clearnigger');
       break;
     case 'delete':
       _delete();
-      console.log('nignog delete');
       break;
     case 'x':
     case '+':
     case '-':
     case '÷':
-      operator();
-      console.log('x nigger');
+      operator(this.id);
       break;
     case '=':
-      console.log('igual funciona');
+      equal();
       break;
+    case '.':
+      if (down.includes('.')) {
+        break;
+      }
+    case '0':
+      if (down[0] === '0' && down.length <= 1) {
+        break;
+      }
     default:
       down += this.id;
+      displayBottom.textContent = down;
   }
 }
 function _clear() {
   down = '';
+  displayBottom.textContent = down;
+  up = '';
+  displayTop.textContent = up;
 }
 function _delete() {
   if (down) {
     down = down.substring(0, down.length - 1);
   }
+  displayBottom.textContent = down;
 }
-function operator() {
+function operator(op) {
   up = down;
+  if (up) {
+    displayTop.textContent = `${up} ${op}`;
+  }
   down = '';
+  displayBottom.textContent = down;
 }
-function mul() {
-  return var1 * var2;
+function equal() {
+  if (displayTop.textContent.includes('=')) {
+    console.log('not doing anything');
+  } else if (down) {
+    displayTop.textContent += ` ${down} =`;
+    stringToAnswer(displayTop.textContent);
+    displayBottom.textContent = ans;
+    down = ans;
+  } else if (!down && !up) {
+    displayBottom.textContent = '';
+  } else {
+    displayBottom.textContent = 'Syntax ERROR';
+  }
 }
-function div() {
-  return Math.round((var1 / var2) * 100000) / 100000;
-}
-function sum() {
-  return var1 + var2;
-}
-function minus() {
-  return var1 - var2;
+
+function stringToAnswer(topString) {
+  const arr = topString.split(' ');
+  let num1 = Number(arr[0]);
+  let ope = arr[1];
+  let num2 = Number(arr[2]);
+  switch (ope) {
+    case '+':
+      ans = num1 + num2;
+      break;
+    case '-':
+      ans = num1 - num2;
+      break;
+    case '÷':
+      ans = Math.round((num1 / num2) * 100000) / 100000;
+      break;
+    case 'x':
+      ans = num1 * num2;
+      break;
+  }
 }
