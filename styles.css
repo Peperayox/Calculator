@@ -94,14 +94,16 @@ body {
   border-radius: 10px;
   border: 2px var(--border) solid;
   margin-bottom: 20px;
+  max-height: 140px;
+  gap: 10px;
 }
 .display-top {
-  min-height: 30%;
+  min-height: 35%;
   font-size: 22px;
   overflow-y: scroll;
 }
 .display-bottom {
-  min-height: 70%;
+  min-height: 65%;
   font-size: 40px;
   overflow-y: scroll;
 }
